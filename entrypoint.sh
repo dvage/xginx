@@ -9,8 +9,10 @@ PORT=80
   
 mkdir /xraybin
 cd /xraybin
-wget -qO- https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip | busybox unzip -
-chmod +x /xray
+wget --no-check-certificate https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip
+unzip Xray-linux-64.zip
+rm -f Xray-linux-64.zip
+chmod +x ./xray
 
 sed -e "/^#/d"\
     -e "s/\${Vless_UUID}/${Vless_UUID}/g"\
@@ -18,6 +20,8 @@ sed -e "/^#/d"\
     -e "s/\${Vmess_UUID}/${Vmess_UUID}/g"\
     -e "s|\${Vmess_Path}|${Vmess_Path}|g"\
     /conf/Xray.template.json >  /xraybin/config.json
+echo /xraybin/config.json
+cat /xraybin/config.json
 	
 sed -e "/^#/d"\
     -e "s/\${PORT}/${PORT}/g"\
@@ -26,6 +30,8 @@ sed -e "/^#/d"\
     -e "s|\${Share_Path}|${Share_Path}|g"\
     -e "$s"\
     /conf/nginx.template.conf > /etc/nginx/conf.d/ray.conf
+echo /etc/nginx/conf.d/ray.conf
+cat /etc/nginx/conf.d/ray.conf
 
 cd /xraybin
 ./xray run -c ./config.json &
