@@ -5,6 +5,7 @@ Vless_Path="/vl33"
 Vless_UUID="791f43b2-eb41-4c83-883c-23896d57f28d"
 Vmess_Path="/vm33"
 Vmess_UUID="791f43b2-eb41-4c83-883c-23896d57f28d"
+PORT=80
   
 mkdir /xraybin
 cd /xraybin
